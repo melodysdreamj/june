@@ -103,6 +103,62 @@ class CounterVM extends JuneState {
 
 ```
 
+or, you can include actions when declaring a State.
+```dart
+import 'package:flutter/material.dart';
+import 'package:june/june.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: JuneBuilder(
+                () => CounterVM(),
+            builder: (vm) =>
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text('You have pushed the button this many times:'),
+                    Text(
+                      '${vm.count}',
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headlineMedium,
+                    ),
+                  ],
+                ),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // This way, you can call a function inside the model.
+            June.getState(CounterVM()).incrementCounter();
+          },
+          child: const Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+}
+
+class CounterVM extends JuneState {
+  int count = 0;
+
+  // You can also create actions inside the model.
+  incrementCounter() {
+    count++;
+    setState();
+  }
+}
+```
+
 ## Advance
 ### Object State Management
 June offers the ability to create multiple instances of declared states as objects. This feature is extremely useful for managing different data in repetitive formats, such as feed content.
