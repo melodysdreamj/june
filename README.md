@@ -15,7 +15,7 @@ June is a lightweight and modern state management library that focuses on provid
 - ✨ **Native Flutter State Pattern**: By adopting the native Flutter state management pattern, you can declare variables and manage them with setState, facilitating an easy transition to app-level scalability.
 - 🦄 **No Widget Modification Required**: Use MaterialApp, StatelessWidget, and StatefulWidget as is, with no changes needed for enhanced state management.
 - 🚀 **No State Initialization**: Simplifies Flutter app development by automatically setting up state management, eliminating manual initialization, and reducing boilerplate. This approach ensures a cleaner, more maintainable codebase and a quicker start to development.
-
+- 🌐 **Harmony with All Architectures**: Maintains a simple and flexible usage, allowing for easy integration with all types of architectures. This ensures that developers can apply it seamlessly to their preferred architectural patterns, enhancing adaptability and ease of use across various project scales.
 ## Usage
 1. Declare the states.
 ```dart
