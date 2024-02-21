@@ -23,7 +23,7 @@ class CounterVM extends JuneState {
   int count = 0;
 }
 ```
-2. The state management wraps the widget(or page) to be managed with JuneBuilder.(You can place it in multiple locations.)
+2. The state management wraps the widget to be managed with JuneBuilder.(You can place it in multiple locations.)
 ```dart
 JuneBuilder(
   () => CounterVM(),
