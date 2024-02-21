@@ -138,7 +138,7 @@ class MyApp extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // This way, you can call a function inside the model.
+            // This way, you can call actions inside the model.
             June.getState(CounterVM()).incrementCounter();
           },
           child: const Icon(Icons.add),
