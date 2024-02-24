@@ -247,7 +247,9 @@ class CounterVM extends JuneState {
 }
 ```
 
+## Acknowledgements
 
+This project has been significantly inspired by the native state management system of Flutter, the Provider package, the GetX library, the Bloc pattern, and the state management approach in Svelte. Each of these tools and methodologies has provided substantial inspiration and direction in the development of our own state management solution. We sincerely express our gratitude to all the developers and contributors of Flutter's native state management, Provider, GetX, Bloc, and Svelte's state management. Their innovative approaches and dedication to open source have had a profound impact on shaping our library. We are deeply thankful for the insights, ideas, and principles shared by these communities, which have greatly enriched our project and the wider open source community.
 
 
 

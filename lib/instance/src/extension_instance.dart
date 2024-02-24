@@ -72,7 +72,7 @@ extension Instant on JuneInterface {
   //   );
   // }
 
-  S getState<S>(
+  S put<S>(
     S dependency, {
     String? tag,
     bool permanent = true,
@@ -262,13 +262,13 @@ extension Instant on JuneInterface {
     return i;
   }
 
-  S putOrFind<S>(BuilderPattern<S> dep, {String? tag}) {
+  S getState<S>(S dependency, {String? tag,  bool permanent = true,}) {
     final key = _getKey(S, tag);
 
     if (_singl.containsKey(key)) {
       return _singl[key]!.getDependency() as S;
     } else {
-      return getState(dep(), tag: tag);
+      return put(dependency, tag: tag, permanent: permanent);
     }
   }
 
@@ -316,7 +316,7 @@ extension Instant on JuneInterface {
     final info = getInstanceDetails<P>(tag: tag);
     final permanent = (info.isPermanent ?? false);
     delete<P>(tag: tag, force: permanent);
-    getState(child, tag: tag, permanent: permanent);
+    put(child, tag: tag, permanent: permanent);
   }
 
   /// Replaces a parent instance with a new Instance<P> lazily from the
