@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:june/core/src/smart_management.dart';
 import 'package:june/instance/june_instance.dart';
 
-import '../../instance/src/lifecycle.dart';
-import '../../june.dart';
 import 'june_main.dart';
 
 class RouterReportManager<T> {

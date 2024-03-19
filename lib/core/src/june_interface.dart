@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import 'smart_management.dart';
 
 /// JuneInterface allows any auxiliary package to be merged into the "June"
