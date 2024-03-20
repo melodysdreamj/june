@@ -1,3 +1,6 @@
-## 0.0.1
+## 0.8.6
 
-* TODO: Describe initial release.
+* Improve pub score
+* Update License
+
+Thanks to [curogom](https://github.com/curogom)
