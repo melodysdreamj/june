@@ -118,7 +118,8 @@ extension Instant on JuneInterface {
       name: tag,
       permanent: permanent,
       builder: builder,
-      fenix: fenix ?? June.intelligentManagement == IntelligentManagement.keepFactory,
+      fenix: fenix ??
+          June.intelligentManagement == IntelligentManagement.keepFactory,
     );
   }
 
@@ -262,7 +263,11 @@ extension Instant on JuneInterface {
     return i;
   }
 
-  S getState<S>(S dependency, {String? tag,  bool permanent = true,}) {
+  S getState<S>(
+    S dependency, {
+    String? tag,
+    bool permanent = true,
+  }) {
     final key = _getKey(S, tag);
 
     if (_singl.containsKey(key)) {
@@ -326,8 +331,7 @@ extension Instant on JuneInterface {
   ///
   ///  Note: if fenix is not provided it will be set to true if
   /// the parent instance was permanent
-  void lazyReplace<P>(BuilderPattern<P> builder,
-      {String? tag, bool? fenix}) {
+  void lazyReplace<P>(BuilderPattern<P> builder, {String? tag, bool? fenix}) {
     final info = getInstanceDetails<P>(tag: tag);
     final permanent = (info.isPermanent ?? false);
     delete<P>(tag: tag, force: permanent);
