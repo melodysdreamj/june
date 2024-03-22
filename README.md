@@ -1,4 +1,5 @@
 [![pub package](https://img.shields.io/pub/v/june.svg)](https://pub.dartlang.org/packages/june)
+[![GitHub](https://img.shields.io/github/stars/melodysdreamj/june.svg?style=social&label=Star)](https://github.com/melodysdreamj/june)
 
 
 
