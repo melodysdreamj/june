@@ -41,7 +41,7 @@ JuneBuilder(
 3. Update the states using the setState method.
 ```dart
 // You can call state from anywhere.
-var state = June.getState(CounterVM());
+var state = June.getState(() => CounterVM());
 state.count++;
 
 state.setState();
