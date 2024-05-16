@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
             children: <Widget>[
               FilledButton(
                 onPressed: () {
-                  June.getState(MyController()).getBoredApi();
+                  June.getState(() => MyController()).getBoredApi();
                 },
                 child: const Text("Get boredApi"),
               ),
@@ -80,15 +80,15 @@ class MyApp extends StatelessWidget {
 }
 
 checkInstanceWithTag() {
-  var c = June.getState(MyController());
-  var c2 = June.getState(MyController(), tag: "new");
+  var c = June.getState(() => MyController());
+  var c2 = June.getState(() => MyController(), tag: "new");
   c2.instance = c == c2;
   c2.setState();
 }
 
 checkInstanceNoTag() {
-  var c = June.getState(MyController());
-  var c2 = June.getState(MyController());
+  var c = June.getState(() => MyController());
+  var c2 = June.getState(() => MyController());
   c.instance = c == c2;
   c.setState();
 }

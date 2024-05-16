@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            June.getState(CounterVM()).incrementCounter();
+            June.getState(() => CounterVM()).incrementCounter();
           },
           child: const Icon(Icons.add),
         ),

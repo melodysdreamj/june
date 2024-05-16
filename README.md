@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
 
 void incrementCounter() {
   // You can call state from anywhere.
-  var state = June.getState(CounterVM());
+  var state = June.getState(() => CounterVM());
   state.count++;
 
   state.setState();
@@ -140,7 +140,7 @@ class MyApp extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             // This way, you can call actions inside the model.
-            June.getState(CounterVM()).incrementCounter();
+            June.getState(() => CounterVM()).incrementCounter();
           },
           child: const Icon(Icons.add),
         ),
@@ -232,13 +232,13 @@ class MyApp extends StatelessWidget {
 }
 
 void increaseBasicInstance() {
-  var state = June.getState(CounterVM());
+  var state = June.getState(() => CounterVM());
   state.count++;
   state.setState();
 }
 
 void increaseObjectInstanceCreatedWithTags() {
-  var state = June.getState(CounterVM(), tag: "SomeId");
+  var state = June.getState(() => CounterVM(), tag: "SomeId");
   state.count++;
   state.setState();
 }
@@ -246,6 +246,18 @@ void increaseObjectInstanceCreatedWithTags() {
 class CounterVM extends JuneState {
   int count = 0;
 }
+```
+
+## Migration
+### 0.8.x to 1.0.0
+#### Before
+```dart
+June.getState(CounterVM());
+```
+
+#### After
+```dart
+June.getState(() => CounterVM());
 ```
 
 ## Acknowledgements

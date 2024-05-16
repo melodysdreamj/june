@@ -70,7 +70,7 @@ class JuneBuilder<T extends JuneState> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    June.getState(createInstance(), tag: tag, permanent: global);
+    June.getState(() => createInstance(), tag: tag, permanent: global);
 
     return Binder(
       init: init == null ? null : () => init!,
@@ -132,7 +132,7 @@ abstract class Bind<T> extends StatelessWidget {
     String? tag,
     bool permanent = false,
   }) {
-    June.put<S>(dependency, tag: tag, permanent: permanent);
+    June.put<S>(() => dependency, tag: tag, permanent: permanent);
     return _FactoryBind<S>(
       autoRemove: permanent,
       assignId: true,
@@ -199,7 +199,7 @@ abstract class Bind<T> extends StatelessWidget {
     final info = June.getInstanceDetails<P>(tag: tag);
     final permanent = (info.isPermanent ?? false);
     delete<P>(tag: tag, force: permanent);
-    June.put(child, tag: tag, permanent: permanent);
+    June.put(() => child, tag: tag, permanent: permanent);
   }
 
   static void lazyReplace<P>(BuilderPattern<P> builder,
@@ -477,7 +477,7 @@ class BindElement<T> extends InheritedElement {
         if (widget.lazy) {
           June.lazyPut<T>(_controllerBuilder!, tag: widget.tag);
         } else {
-          June.put<T>(_controllerBuilder!(), tag: widget.tag);
+          June.put<T>(() => _controllerBuilder!(), tag: widget.tag);
         }
       }
     } else {

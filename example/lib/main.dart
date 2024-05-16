@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
 }
 
 void incrementCounter() {
-  var state = June.getState(CounterVM());
+  var state = June.getState(() => CounterVM());
   state.count++;
 
   state.setState();

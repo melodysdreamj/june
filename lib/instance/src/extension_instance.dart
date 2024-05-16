@@ -73,7 +73,7 @@ extension Instant on JuneInterface {
   // }
 
   S put<S>(
-    S dependency, {
+      S Function() dependencyBuilder, {
     String? tag,
     bool permanent = true,
   }) {
@@ -81,7 +81,7 @@ extension Instant on JuneInterface {
         isSingleton: true,
         name: tag,
         permanent: permanent,
-        builder: (() => dependency));
+        builder: (dependencyBuilder));
     return find<S>(tag: tag);
   }
 
@@ -264,7 +264,7 @@ extension Instant on JuneInterface {
   }
 
   S getState<S>(
-    S dependency, {
+      S Function() dependencyBuilder, {
     String? tag,
     bool permanent = true,
   }) {
@@ -273,7 +273,7 @@ extension Instant on JuneInterface {
     if (_singl.containsKey(key)) {
       return _singl[key]!.getDependency() as S;
     } else {
-      return put(dependency, tag: tag, permanent: permanent);
+      return put(dependencyBuilder, tag: tag, permanent: permanent);
     }
   }
 
@@ -321,7 +321,7 @@ extension Instant on JuneInterface {
     final info = getInstanceDetails<P>(tag: tag);
     final permanent = (info.isPermanent ?? false);
     delete<P>(tag: tag, force: permanent);
-    put(child, tag: tag, permanent: permanent);
+    put(() => child, tag: tag, permanent: permanent);
   }
 
   /// Replaces a parent instance with a new Instance<P> lazily from the

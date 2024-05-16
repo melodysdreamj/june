@@ -1,6 +1,6 @@
 name: june
 description: "June is a lightweight and modern state management library that focuses on providing a pattern very similar to Flutter's native state management."
-version: 0.8.8
+version: 1.0.0
 homepage: https://github.com/melodysdreamj/june
 
 
@@ -15,7 +15,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

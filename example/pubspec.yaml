@@ -24,6 +24,7 @@ environment:
 dependency_overrides:
   june:
     path: ../
+  http: ^1.2.1
 
 
 dependencies:

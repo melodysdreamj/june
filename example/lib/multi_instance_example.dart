@@ -62,13 +62,13 @@ class MyApp extends StatelessWidget {
 }
 
 void increaseBasicInstance() {
-  var state = June.getState(CounterVM());
+  var state = June.getState(() => CounterVM());
   state.count++;
   state.setState();
 }
 
 void increaseObjectInstanceCreatedWithTags() {
-  var state = June.getState(CounterVM(), tag: "SomeId");
+  var state = June.getState(() => CounterVM(), tag: "SomeId");
   state.count++;
   state.setState();
 }
