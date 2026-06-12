@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Fix: Added explicit `void` return type to `startAction()` to resolve static analysis warning (`missing_return_type_for_function_expression`), improving pub score.
+
 ## 1.0.1+2
 
 * Fix: Listener mismatch when `widget.id` is a `JuneState` instance — the listener is now registered directly on that instance via `idState.addListenerId(widget.id, filter)`. Previously it was always registered on `localController` (the June-managed singleton for the type), so `setState([this])` called on a different instance would search the wrong HashMap, find no updaters, and produce no rebuild.

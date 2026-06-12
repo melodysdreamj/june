@@ -1,1 +1,1 @@
-startAction() {}
+void startAction() {}
