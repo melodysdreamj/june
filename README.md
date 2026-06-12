@@ -1,57 +1,83 @@
 [![pub package](https://img.shields.io/pub/v/june.svg)](https://pub.dartlang.org/packages/june)
-[![GitHub](https://img.shields.io/github/stars/melodysdreamj/june.svg?style=social&label=Star)](https://github.com/melodysdreamj/june)
-
-
+[![GitHub Stars](https://img.shields.io/github/stars/melodysdreamj/june.svg?style=social&label=Star)](https://github.com/melodysdreamj/june)
+[![Documentation](https://img.shields.io/badge/docs-junelee.fun-blue?style=flat-square)](https://junelee.fun/)
 
 # June
-[![Discord Server Invite](https://img.shields.io/badge/DISCORD-JOIN%20SERVER-5663F7?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/zXXHvAXCug)
-[![Kakao_Talk](https://img.shields.io/badge/KakaoTalk-Join%20Room-FEE500?style=for-the-badge&logo=kakao)](https://open.kakao.com/o/gEwrffbg)
 
-The main reason you need a state management library in Flutter is because managing state changes or sharing states from the outside is difficult with the native Flutter state management. However, many state management libraries deviate from their original purpose and end up containing much more code, attempting to control the app development pattern itself. We need a state management library that stays true to its original purpose without straying too far from the native Flutter state management.
+> **Full documentation:** [junelee.fun](https://junelee.fun/)
 
-June is a lightweight and modern state management library that focuses on providing a pattern very similar to Flutter's native state management.
+[![Discord](https://img.shields.io/badge/DISCORD-JOIN%20SERVER-5663F7?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/zXXHvAXCug)
+[![KakaoTalk](https://img.shields.io/badge/KakaoTalk-Join%20Room-FEE500?style=for-the-badge&logo=kakao)](https://open.kakao.com/o/gEwrffbg)
 
-## Features
+**June** is a lightweight Flutter state management library that stays true to Flutter's native state management pattern — `setState`, variables, and widgets — without forcing you into a new app architecture.
 
-- ✨ **Native Flutter State Pattern**: By adopting the native Flutter state management pattern, you can declare variables and manage them with setState, facilitating an easy transition to app-level scalability.
-- 🦄 **No Widget Modification Required**: Use MaterialApp, StatelessWidget, and StatefulWidget as is, with no changes needed for enhanced state management.
-- 🚀 **No State Initialization**: Simplifies Flutter app development by automatically setting up state management, eliminating manual initialization, and reducing boilerplate. This approach ensures a cleaner, more maintainable codebase and a quicker start to development.
-- 🌐 **Compatibility with Various Architectures**: Maintains a simple and flexible usage, facilitating effortless integration with a wide range of architectural patterns. This approach ensures that developers can adapt it easily to their specific project requirements, promoting versatility and ease of use across diverse project scales.
-## Usage
-1. Declare the states.
+---
+
+## Why June?
+
+Most state management libraries solve the right problem but go too far. They introduce new patterns, abstractions, and conventions that take over your entire app. June solves only the problem: sharing and updating state across widgets, with minimal ceremony.
+
+| Feature | June |
+|---|---|
+| No wrapping `MaterialApp` | ✅ |
+| No manual initialization | ✅ |
+| Works with `StatelessWidget` | ✅ |
+| Call `setState` from anywhere | ✅ |
+| Multiple instances with tags | ✅ |
+| Per-widget local state | ✅ |
+
+---
+
+## Installation
+
+Add June to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  june: ^1.0.1
+```
+
+Then run:
+
+```sh
+flutter pub get
+```
+
+---
+
+## Quick Start
+
+### 1. Declare your state
+
 ```dart
 class CounterVM extends JuneState {
   int count = 0;
 }
 ```
-2. The state management wraps the widget to be managed with JuneBuilder.(You can place it in multiple locations.)
+
+### 2. Wrap your widget with `JuneBuilder`
+
 ```dart
 JuneBuilder(
   () => CounterVM(),
-  builder: (vm) => Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-      Text('${vm.count}'
-      ),
-    ],
-  ),
+  builder: (vm) => Text('${vm.count}'),
 )
 ```
 
-3. Update the states using the setState method.
-```dart
-// You can call state from anywhere.
-var state = June.getState(() => CounterVM());
-state.count++;
+### 3. Update state from anywhere
 
-state.setState();
+```dart
+var vm = June.getState(() => CounterVM());
+vm.count++;
+vm.setState();
 ```
 
-4. That's All!
+That's it. No providers, no streams, no boilerplate.
 
+---
 
+## Full Example
 
-#### Example
 ```dart
 import 'package:flutter/material.dart';
 import 'package:june/june.dart';
@@ -70,7 +96,7 @@ class MyApp extends StatelessWidget {
             () => CounterVM(),
             builder: (vm) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              children: [
                 const Text('You have pushed the button this many times:'),
                 Text(
                   '${vm.count}',
@@ -80,68 +106,10 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        floatingActionButton: const FloatingActionButton(
-          onPressed: incrementCounter,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ),
-      ),
-    );
-  }
-}
-
-void incrementCounter() {
-  // You can call state from anywhere.
-  var state = June.getState(() => CounterVM());
-  state.count++;
-
-  state.setState();
-}
-
-class CounterVM extends JuneState {
-  int count = 0;
-}
-
-```
-
-or, you can include actions when declaring a State.
-```dart
-import 'package:flutter/material.dart';
-import 'package:june/june.dart';
-
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: JuneBuilder(
-                () => CounterVM(),
-            builder: (vm) =>
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text('You have pushed the button this many times:'),
-                    Text(
-                      '${vm.count}',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headlineMedium,
-                    ),
-                  ],
-                ),
-          ),
-        ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // This way, you can call actions inside the model.
-            June.getState(() => CounterVM()).incrementCounter();
-          },
+          onPressed: () => June.getState(() => CounterVM())
+            ..count++
+            ..setState(),
           child: const Icon(Icons.add),
         ),
       ),
@@ -151,122 +119,193 @@ class MyApp extends StatelessWidget {
 
 class CounterVM extends JuneState {
   int count = 0;
+}
+```
 
-  // You can also create actions inside the model.
-  incrementCounter() {
+---
+
+## Actions Inside the State
+
+You can define methods directly on your state class to keep logic close to data:
+
+```dart
+class CounterVM extends JuneState {
+  int count = 0;
+
+  void increment() {
     count++;
     setState();
   }
 }
 ```
 
-## Advance
-### Object State Management
-June offers the ability to create multiple instances of declared states as objects. This feature is extremely useful for managing different data in repetitive formats, such as feed content.
+Call it from anywhere:
 
-Simply add a tag to JuneBuilder and June.getState to utilize this functionality.
-
-#### Example
 ```dart
-import 'package:flutter/material.dart';
-import 'package:june/june.dart';
+June.getState(() => CounterVM()).increment();
+```
 
-void main() => runApp(const MyApp());
+---
+
+## Advanced
+
+### Multiple Instances with Tags
+
+Use `tag` to maintain separate instances of the same state type — useful for list items, feeds, or any repeating structure.
+
+```dart
+// Default instance
+JuneBuilder(
+  () => CounterVM(),
+  builder: (vm) => Text('Default: ${vm.count}'),
+)
+
+// Tagged instance
+JuneBuilder(
+  () => CounterVM(),
+  tag: 'cardA',
+  builder: (vm) => Text('Card A: ${vm.count}'),
+)
+```
+
+Update a specific tagged instance from anywhere:
+
+```dart
+June.getState(() => CounterVM(), tag: 'cardA')
+  ..count++
+  ..setState();
+```
+
+### Per-Widget Local State (`global: false`)
+
+For state tied to a single widget instance — not shared globally — use `global: false`. This is the correct pattern when a state object is created outside June and passed into a widget.
+
+```dart
+class MyState extends JuneState {
+  int value = 0;
+
+  void increment() {
+    value++;
+    setState();
+  }
+}
+```
+
+```dart
+final myState = MyState();
+
+JuneBuilder(
+  () => myState,
+  global: false,
+  builder: (state) => Text('${state.value}'),
+)
+```
+
+With `global: false`, June uses the provided instance directly without touching the global registry, so each widget holds its own isolated state. This avoids listener mismatches when the same state type is used across multiple screens or navigation pushes.
+
+> **Note:** Do not pass the instance itself as the `id` parameter. Use `global: false` with plain `setState()` instead. See the [id vs tag](#id-vs-tag) section below.
+
+### Theme Mode Toggle
+
+`JuneBuilder` can wrap `MaterialApp` to rebuild the entire app when state changes:
+
+```dart
+class MyController extends JuneState {
+  bool isDark = false;
+
+  void toggleTheme() {
+    isDark = !isDark;
+    setState();
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              JuneBuilder(
-                    () => CounterVM(),
-                builder: (vm) => Column(
-                  children: [
-                    const Text('Basic instance counter'),
-                    Text(
-                      '${vm.count}',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                  ],
-                ),
-              ),
-              JuneBuilder(
-                    () => CounterVM(),
-                tag: "SomeId",
-                builder: (vm) => Column(
-                  children: [
-                    const Text('Object instance counter created with tags'),
-                    Text(
-                      '${vm.count}',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: const Stack(
-          children: <Widget>[
-            Positioned(
-                right: 0,
-                bottom: 80,
-                child: FloatingActionButton.extended(
-                    onPressed: increaseBasicInstance, label: Text("Increase basic instance"))),
-            Positioned(
-                right: 0,
-                bottom: 10,
-                child: FloatingActionButton.extended(
-                    onPressed: increaseObjectInstanceCreatedWithTags, label: Text("Increase object instance created with tags"))),
-          ],
-        ),
+    return JuneBuilder(
+      () => MyController(),
+      builder: (c) => MaterialApp(
+        theme: ThemeData(),
+        darkTheme: ThemeData(brightness: Brightness.dark),
+        themeMode: c.isDark ? ThemeMode.dark : ThemeMode.light,
+        home: const HomeUi(),
       ),
     );
   }
 }
+```
 
-void increaseBasicInstance() {
-  var state = June.getState(() => CounterVM());
-  state.count++;
-  state.setState();
-}
+### Async State / HTTP
 
-void increaseObjectInstanceCreatedWithTags() {
-  var state = June.getState(() => CounterVM(), tag: "SomeId");
-  state.count++;
-  state.setState();
-}
+June works naturally with async operations. Call `setState()` once data is ready:
 
-class CounterVM extends JuneState {
-  int count = 0;
+```dart
+class ApiController extends JuneState {
+  String? result;
+
+  Future<void> fetchData() async {
+    final res = await http.get(Uri.parse('https://api.example.com/data'));
+    result = res.body;
+    setState();
+  }
 }
 ```
+
+```dart
+JuneBuilder(
+  () => ApiController(),
+  builder: (c) => c.result == null
+      ? const CircularProgressIndicator()
+      : Text(c.result!),
+)
+```
+
+---
+
+## Key Concepts
+
+| Concept | Description |
+|---|---|
+| `JuneState` | Base class for all state objects. Call `setState()` to trigger rebuilds. |
+| `JuneBuilder` | Widget that subscribes to a state and rebuilds when `setState()` is called. |
+| `June.getState()` | Retrieves the global singleton for a state type, creating it if needed. |
+| `tag` | Differentiates multiple registered instances of the same type in the global registry. |
+| `global: false` | Bypasses the global registry; the builder uses the provided instance directly. |
+
+### id vs tag
+
+These two parameters serve different purposes:
+
+| Parameter | Purpose | When to use |
+|---|---|---|
+| `tag` | Selects which registered instance to use from the global registry | Multiple independent instances of the same state type across the app |
+| `id` | Selectively triggers only `JuneBuilder` widgets that share the same `id`, when calling `setState([id])` on a single shared state | Partial rebuilds within a single shared state |
+
+---
 
 ## Migration
-### 0.8.x to 1.0.0
-#### Before
-```dart
-June.getState(CounterVM());
-```
 
-#### After
+### 0.8.x → 1.0.0
+
 ```dart
+// Before
+June.getState(CounterVM());
+
+// After
 June.getState(() => CounterVM());
 ```
 
+---
+
+## Community
+
+[![Discord](https://img.shields.io/badge/DISCORD-JOIN%20SERVER-5663F7?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/zXXHvAXCug)
+[![KakaoTalk](https://img.shields.io/badge/KakaoTalk-Join%20Room-FEE500?style=for-the-badge&logo=kakao)](https://open.kakao.com/o/gEwrffbg)
+
+---
+
 ## Acknowledgements
 
-This project has been significantly inspired by the native state management system of Flutter, the Provider package, the GetX library, the Bloc pattern, and the state management approach in Svelte. Each of these tools and methodologies has provided substantial inspiration and direction in the development of our own state management solution. We sincerely express our gratitude to all the developers and contributors of Flutter's native state management, Provider, GetX, Bloc, and Svelte's state management. Their innovative approaches and dedication to open source have had a profound impact on shaping our library. We are deeply thankful for the insights, ideas, and principles shared by these communities, which have greatly enriched our project and the wider open source community.
-
-
-
-
-
-
-
+June is inspired by Flutter's native state management, [Provider](https://pub.dev/packages/provider), [GetX](https://pub.dev/packages/get), [Bloc](https://pub.dev/packages/flutter_bloc), and [Svelte](https://svelte.dev/). We are grateful to all contributors and the communities behind these projects for the insights that shaped June.
