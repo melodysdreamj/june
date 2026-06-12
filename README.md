@@ -34,7 +34,7 @@ Add June to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  june: ^1.0.1
+  june: ^1.0.2
 ```
 
 Then run:
